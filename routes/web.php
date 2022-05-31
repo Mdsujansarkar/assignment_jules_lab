@@ -19,3 +19,6 @@ Route::get('/admin', function () {
 Route::get('/', function () {
     return view('frontend.home.home');
 });
+Route::get('/login', function () {
+    return view('backend.auth.login');
+});
