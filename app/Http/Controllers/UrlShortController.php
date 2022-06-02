@@ -3,6 +3,8 @@
 declare(strict_types=1);
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShortRequest;
+use App\Models\UrlShorts;
 use Illuminate\Http\Request;
 
 class UrlShortController extends Controller
@@ -33,9 +35,22 @@ class UrlShortController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShortRequest $request)
     {
-        //
+        if($request->main_url) {
+            $mainUrl = UrlShorts::create([
+                'main_url' => $request->main_url
+            ]);
+        }
+        if($mainUrl) {
+            $hexadecimal = '5';
+            $short_url = base_convert($hexadecimal, 10,36);
+            $mainUrl->update([
+                'short_url' =>$short_url
+            ]);
+            return redirect()->back()->with('success','Your Short URL'. url($short_url));
+        }
+        return back();
     }
 
     /**
