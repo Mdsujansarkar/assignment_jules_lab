@@ -25,7 +25,19 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        return($request);
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+            'name' => 'required',
+        ]);
+
+        $user = new User();      
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->user_role = $request->user_role;
+        $user->save();
+        return redirect('/admin')->with('message','Login Create Successfully');
     }
 
     /**
@@ -91,5 +103,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function logout()
+    {
+        auth()->logout();
+        return redirect('/login');
     }
 }

@@ -18,8 +18,9 @@ Route::get('/', [UrlShortController::class, 'index'])->name('url.short');
 Route::post('/url/short', [UrlShortController::class, 'store'])->name('url.short.store');
 Route::post('/login/admin', [UserController::class, 'store'])->name('admin.login');
 
-Route::get('/login', [UserController::class, 'store']);
+Route::post('/login/create', [UserController::class, 'store']);
 Route::get('/user/signup', [UserController::class, 'registration'])->name('user.signup');
 Route::post('/user/create', [UserController::class, 'create'])->name('user.registration');
+Route::get('/admin/logout', [UserController::class, 'logout'])->name('admin.logout');
 
 
