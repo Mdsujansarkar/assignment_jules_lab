@@ -8,7 +8,7 @@
                     <!-- Page heading-->
                     <h4 class="mb-5">URL Shortener</h4>
                     @if(session('success'))
-                        <p>{!!session('success') !!}</p>
+                        <p>{!! session('success') !!}</p>
                     @endif
                 
                     <form class="form-subscribe" id="contactForm" action="{{ route('url.short.store') }}" method="post">
@@ -36,6 +36,33 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="container">
+    <div class="row">
+        <div class="col-xl-12">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <!-- <th scope="col">Main URL</th> -->
+                <th scope="col">Short URL</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                @if(session('success'))
+                <td id="copy-id"><a href="{!! session('success') !!}" target="_blank" style="color:aliceblue">{!! session('success') !!}</a></td>
+                @endif
+             
+                <td><button id="click-to-copy">copy!</button></td>
+
+            </tr>
+        </tbody>
+        </table>
+        </div>
         </div>
     </div>
 </header>

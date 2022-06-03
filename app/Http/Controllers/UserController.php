@@ -1,22 +1,21 @@
 <?php
 
-declare(strict_types=1);
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ShortRequest;
-use App\Models\UrlShorts;
 use Illuminate\Http\Request;
+use Auth;
+use App\Models\User;
 
-class UrlShortController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function registration()
     {
-        return view('frontend.home.home');
+        return view('backend.auth.register');
     }
 
     /**
@@ -24,9 +23,9 @@ class UrlShortController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        return($request);
     }
 
     /**
@@ -35,23 +34,18 @@ class UrlShortController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ShortRequest $request)
+    public function store(Request $request)
     {
-        if($request->main_url) {
-            $mainUrl = UrlShorts::create([
-                'main_url' => $request->main_url
-            ]);
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        $credinsial = $request->only('email','password');
+        if(auth()->attempt($credinsial)){
+            return redirect('/admin')->with('message','Login Create Successfully');
+        }else{
+            return back();
         }
-        if($mainUrl) {
-            $hexadecimal = '5';
-            $short_url = base_convert($hexadecimal, 10,36);
-            $mainUrl->update([
-                'short_url' =>$short_url
-            ]);
-           
-            return redirect()->back()->with('success', url($short_url));
-        }
-        return back();
     }
 
     /**
