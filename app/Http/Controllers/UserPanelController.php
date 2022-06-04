@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
 use App\Models\UserAgentInfo;
+use App\Models\UrlShorts;
 use Stevebauman\Location\Facades\Location;
 
 class UserPanelController extends Controller
@@ -18,15 +19,17 @@ class UserPanelController extends Controller
     {
        $agent = new Agent();
        $ip = request()->ip(); /* Static IP address */
-       $currentUserInfo = Location::get($ip);
-        $auth_id = auth()->user()->id;
+       $currentUserInfo = Location::get('103.112.206.10');
+         $auth_id = auth()->user()->id;
+         $user_id = UrlShorts::where('user_id', $auth_id)->first();
+         
        
         $userAgent = new UserAgentInfo();
         $userAgent->ip_address =$ip;
-        $userAgent->location =$ip;
-        $userAgent->user_id =auth()->user()->user_id;
-        $userAgent->latitude =$ip;
-        $userAgent->longitude =$ip;
+        $userAgent->location =$currentUserInfo->countryName;
+        $userAgent->user_id =$user_id['user_id'];
+        $userAgent->latitude =$currentUserInfo->latitude;
+        $userAgent->longitude =$currentUserInfo->longitude;
         $userAgent->browser =$agent->browser();
         $userAgent->os_name =$agent->platform();
         $userAgent->device =$agent->device();

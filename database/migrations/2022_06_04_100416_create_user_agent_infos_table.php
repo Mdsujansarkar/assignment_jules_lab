@@ -17,7 +17,7 @@ class CreateUserAgentInfosTable extends Migration
             $table->id();
             $table->string('ip_address');
             $table->string('location');
-            $table->string('user_id');
+            $table->string('user_id')->nullable();
             $table->string('latitude');
             $table->string('longitude');
             $table->string('browser');
