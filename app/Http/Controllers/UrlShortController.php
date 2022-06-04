@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ShortRequest;
 use App\Models\UrlShorts;
 use App\Models\User;
+use App\Models\UserAgentInfo;
 use Illuminate\Http\Request;
 
 class UrlShortController extends Controller
@@ -25,9 +26,9 @@ class UrlShortController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function adminLogin()
     {
-        //
+        return view('backend.auth.login');
     }
 
     /**
@@ -67,9 +68,10 @@ class UrlShortController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function adminDashboard()
     {
-        //
+        $user_agent_info = UserAgentInfo::paginate(1);
+        return view('backend.home.dashboard');
     }
 
     /**

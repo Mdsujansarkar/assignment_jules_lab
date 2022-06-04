@@ -7,14 +7,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/admin', function () {
-    return view('backend.home.dashboard');
-});
 
-Route::get('/login', function () {
-    return view('backend.auth.login');
-});
-
+Route::get('/admin', [UrlShortController::class, 'adminDashboard']);
+Route::get('/login', [UrlShortController::class, 'adminLogin']);
 Route::get('/', [UrlShortController::class, 'index'])->name('url.short');
 Route::post('/url/short', [UrlShortController::class, 'store'])->name('url.short.store');
 Route::post('/login/admin', [UserController::class, 'store'])->name('admin.login');

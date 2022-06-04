@@ -37,7 +37,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->user_role = $request->user_role;
         $user->save();
-        return redirect('/admin')->with('message','Login Create Successfully');
+        return redirect('/user/add')->with('message','Login Create Successfully');
     }
 
     /**
@@ -53,11 +53,15 @@ class UserController extends Controller
             'password' => 'required',
         ]);
         $credinsial = $request->only('email','password');
-        if(auth()->attempt($credinsial)){
-            return redirect('/admin')->with('message','Login Create Successfully');
-        }else{
-            return back();
-        }
+        $user_role =User::where('user_role','admin')->first();
+         
+         if($user_role->user_role=='admin'){
+            if(auth()->attempt($credinsial)){
+                return redirect('/admin')->with('message','Login Create Successfully');
+            }else{
+                return back();
+            }
+         }
     }
 
     /**
@@ -74,7 +78,7 @@ class UserController extends Controller
         ]);
         $credinsial = $request->only('email','password');
         if(auth()->attempt($credinsial)){
-            return redirect('/user/panel')->with('message','Login Create Successfully');
+            return redirect('/')->with('message','Login Create Successfully');
         }else{
             return back()->with('message','Login Not Successfully');
         }

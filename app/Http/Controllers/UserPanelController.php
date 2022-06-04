@@ -22,8 +22,6 @@ class UserPanelController extends Controller
        $currentUserInfo = Location::get('103.112.206.10');
          $auth_id = auth()->user()->id;
          $user_id = UrlShorts::where('user_id', $auth_id)->first();
-         
-       
         $userAgent = new UserAgentInfo();
         $userAgent->ip_address =$ip;
         $userAgent->location =$currentUserInfo->countryName;
