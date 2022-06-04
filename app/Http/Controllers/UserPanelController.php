@@ -1,14 +1,10 @@
 <?php
 
-declare(strict_types=1);
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ShortRequest;
-use App\Models\UrlShorts;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class UrlShortController extends Controller
+class UserPanelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +13,7 @@ class UrlShortController extends Controller
      */
     public function index()
     {
-        return view('frontend.home.home');
+        return view('frontend.userPanel.userPanel');
     }
 
     /**
@@ -36,29 +32,9 @@ class UrlShortController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ShortRequest $request)
+    public function store(Request $request)
     {
-        if($request->main_url) {
-            if(auth()->user()->user_role='user') {
-                $mainUrl = auth()->user()->links()->create([
-                    'main_url' => $request->main_url
-                ]);
-            } else {
-                $mainUrl = UrlShorts::create([
-                    'main_url' => $request->main_url
-                ]);
-            }
-        }
-        if($mainUrl) {
-            $hexadecimal = '5';
-            $short_url = base_convert($hexadecimal, 10,36);
-            $mainUrl->update([
-                'short_url' =>$short_url
-            ]);
-           
-            return redirect()->back()->with('success', url($short_url));
-        }
-        return back();
+        //
     }
 
     /**

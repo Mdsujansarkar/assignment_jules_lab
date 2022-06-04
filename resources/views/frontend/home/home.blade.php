@@ -1,4 +1,7 @@
 @extends('frontend.master')
+@section('signup')
+<a class="btn btn-primary" href="{{ route('user.add') }}">Sign In</a>
+@endsection
 @section('view')
 <header class="masthead">
     <div class="container position-relative">

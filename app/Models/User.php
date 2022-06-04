@@ -43,6 +43,6 @@ class User extends Authenticatable
     ];
 
     public function links() {
-        return $this->hasMany(ShortUrl::class);
+        return $this->hasMany(UrlShorts::class);
     }
 }

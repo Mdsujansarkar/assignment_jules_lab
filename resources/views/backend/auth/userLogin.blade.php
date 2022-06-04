@@ -18,35 +18,30 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Register</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">User Login</h3></div>
                                     <div class="card-body">
-                                        <form action="{{ route('user.registration') }}" method="post">
+                                        @if(Session('message'))
+                                        <h4>{{ Session::get('message') }}</h4>
+                                        @endif
+                                        <form action="{{ route('user.login') }}" method="post">
                                             @csrf
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputName" type="text" placeholder="Enter Your Name" name="name" />
-                                                <label for="inputName">Enter Your Name</label>
-                                                @if($errors->has('name'))
-                                                     <div class="text-danger">{{ $errors->first('name') }}</div>
-                                                @endif
-                                            </div>
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="email" />
                                                 <label for="inputEmail">Email address</label>
                                                 @if($errors->has('email'))
-                                                     <div class="text-danger">{{ $errors->first('email') }}</div>
+                                                <div class="text-danger">{{ $errors->first('email') }}</div>
                                                 @endif
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputPassword" type="password" placeholder="Password" name="password" />
                                                 <label for="inputPassword">Password</label>
                                                 @if($errors->has('password'))
-                                                     <div class="text-danger">{{ $errors->first('password') }}</div>
+                                                <div class="text-danger">{{ $errors->first('password') }}</div>
                                                 @endif
-                                                <input type="hidden" name="user_role" value="user" />
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <button type="submit" class="btn btn-primary">Register</button>
-                                                <a href="{{ URL::to('/user/add') }}">Login</a>
+                                                <button type="submit" class="btn btn-primary">Login</button>
+                                                <a href="{{ URL::to('/user/signup') }}">Sign Up</a>
                                             </div>
                                         </form>
                                     </div>

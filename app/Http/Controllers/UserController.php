@@ -66,9 +66,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function userLogin(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        $credinsial = $request->only('email','password');
+        if(auth()->attempt($credinsial)){
+            return redirect('/user/panel')->with('message','Login Create Successfully');
+        }else{
+            return back()->with('message','Login Not Successfully');
+        }
     }
 
     /**
@@ -77,9 +86,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function userAdd()
     {
-        //
+        return view('backend.auth.userLogin');
     }
 
     /**
