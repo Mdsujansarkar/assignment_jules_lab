@@ -10,6 +10,9 @@ use App\Models\UserAgentInfo;
 use Illuminate\Http\Request;
 use Excel;
 use App\Exports\UsersExport;
+use Session;
+use Cache;
+
 
 class UrlShortController extends Controller
 {
@@ -42,7 +45,7 @@ class UrlShortController extends Controller
     public function store(ShortRequest $request)
     {
         if($request->main_url) {
-            if(auth()->user()->user_role='user') {
+            if(auth()->user()) {
                 $mainUrl = auth()->user()->links()->create([
                     'main_url' => $request->main_url
                 ]);
@@ -53,11 +56,12 @@ class UrlShortController extends Controller
             }
         }
         if($mainUrl) {
-            $hexadecimal = '5';
-            $short_url = base_convert($hexadecimal, 10,36);
+            
+            $short_url = substr(str_shuffle("0123456789abcdefghijklmnopqrstvwxyz"), 0, 6);
             $mainUrl->update([
                 'short_url' =>$short_url
             ]);
+             Cache::put('url', url($short_url), 1);
            
             return redirect()->back()->with('success', url($short_url));
         }
@@ -92,36 +96,6 @@ class UrlShortController extends Controller
      */
     public function export($type)
     {
-        // $data = UserAgentInfo::get(['ip_address','location','latitude','longitude','browser','os_name','device'])->toArray();
-        // return Excel::store('export_to_excel_example', function($excel) use ($data) {
-        // $excel->sheet('mySheet', function($sheet) use ($data)
-        // {
-        // $sheet->fromArray($data);
-        // });
-        // })->download($type);
         return Excel::download(new UsersExport, 'users.xlsx');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

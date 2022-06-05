@@ -41,7 +41,9 @@
             </div>
         </div>
     </div>
-    <div class="container">
+
+</header>
+<div class="container">
     <div class="row">
         <div class="col-xl-12">
         <table class="table table-striped table-hover">
@@ -54,20 +56,20 @@
             </tr>
         </thead>
         <tbody>
+
+            @if(Cache('url'))
             <tr>
                 <th scope="row">1</th>
-                @if(session('success'))
-                <td id="copy-id"><a href="{!! session('success') !!}" target="_blank" style="color:aliceblue">{!! session('success') !!}</a></td>
-                @endif
-             
+               
+                    <td id="copy-id"><a href="{!! Cache('url') !!}" target="_blank" style="color:green">{{ Cache::get('url') }}</a></td>
                 <td><button id="click-to-copy">copy!</button></td>
-
             </tr>
+            @endif
         </tbody>
         </table>
         </div>
         </div>
     </div>
-</header>
+
 <!-- Footer-->
 @endsection

@@ -38,5 +38,15 @@
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<script>
+    document
+  .querySelector('#click-to-copy')
+  .addEventListener('click', e => {
+    let value = document.querySelector('#copy-id')
+    value.select();
+    document.execCommand("copy");
+    
+  })
+</script>
 </body>
 </html>
