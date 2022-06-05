@@ -18,7 +18,7 @@ class UserPanelController extends Controller
     public function index()
     {
        $agent = new Agent();
-       $ip = request()->ip(); /* Static IP address */
+       $ip = request()->ip();
        $currentUserInfo = Location::get('103.112.206.10');
          $auth_id = auth()->user()->id;
          $user_id = UrlShorts::where('user_id', $auth_id)->first();

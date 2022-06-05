@@ -70,8 +70,11 @@ class UrlShortController extends Controller
      */
     public function adminDashboard()
     {
-        $user_agent_info = UserAgentInfo::paginate(1);
-        return view('backend.home.dashboard');
+        $user_agent_infos = UserAgentInfo::with('userInfo')->paginate(2);
+        
+        return view('backend.home.dashboard',[
+            'user_agent_infos' =>$user_agent_infos 
+        ]);
     }
 
     /**
