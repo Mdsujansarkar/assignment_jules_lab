@@ -27,4 +27,6 @@ Route::get('/user/panel', [UserPanelController::class, 'index'])->name('user.pan
 //Export csv
 Route::get('/exportTo/{type}', [UrlShortController::class, 'export']);
 
+Route::get('session/{id}', [UrlShortController::class, 'sessionTime'])->name('time.change');
+
 

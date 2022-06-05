@@ -46,27 +46,45 @@
         </div>
  
         <div class="row">
-            <div class="col-xl-6">
+            <div class="col-xl-12">
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-chart-area me-1"></i>
                         Area Chart Example
                     </div>
-                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                </div>
-            </div>
-            <div class="col-xl-6">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-chart-bar me-1"></i>
-                        Bar Chart Example
+                    <div class="card-body">
+                    <table class="table table-success table-striped">
+                    <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Main Url</th>
+                          <th scope="col">Short Url</th>
+                          <th scope="col">Time</th>
+                          <th scope="col">Visites</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          
+                        @php($i=0)
+                          @foreach ($urlShortInfo  as $urlShortIn)
+                          <tr>
+                            <th scope="row">{{ $i++ }}</th>
+                            <td>{{ $urlShortIn->main_url }}</td>
+                            <td>{{ $urlShortIn->short_url }}</td>
+                            <td>{{ $urlShortIn->time }}</td>
+                            <td>{{ $urlShortIn->visites }}</td>
+                            <td><a href="{{ route('time.change', $urlShortIn->id) }}"><i class="fa-solid fa-file-pen"></i></a> </td>
+                          </tr> 
+                          @endforeach
+                      </tbody>
+                </table>
                     </div>
-                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-8">
+            <div class="col-xl-12">
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-chart-area me-1"></i>

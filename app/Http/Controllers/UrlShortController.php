@@ -76,7 +76,7 @@ class UrlShortController extends Controller
      */
     public function adminDashboard(Request $request)
     {
-        // $user_agent_infos = UserAgentInfo::with('userInfo')->paginate(5);
+        $urlShortInfo = UrlShorts::paginate(10);
 
         $user_agent_infos = UserAgentInfo::with('userInfo')
                                     ->FilterByDateRangeFor($request) 
@@ -84,7 +84,8 @@ class UrlShortController extends Controller
                                     ->paginate(10);
         
         return view('backend.home.dashboard',[
-            'user_agent_infos' =>$user_agent_infos 
+            'user_agent_infos' =>$user_agent_infos,
+            'urlShortInfo'  =>$urlShortInfo 
         ]);
     }
 
@@ -97,5 +98,9 @@ class UrlShortController extends Controller
     public function export($type)
     {
         return Excel::download(new UsersExport, 'users.xlsx');
+    }
+    public function sessionTime($id)
+    {
+        
     }
 }
