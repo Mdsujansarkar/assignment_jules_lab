@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/admin', [UrlShortController::class, 'adminDashboard']);
+Route::get('/admin', [UrlShortController::class, 'adminDashboard'])->name('admin.filter');
 Route::get('/login', [UrlShortController::class, 'adminLogin']);
 Route::get('/', [UrlShortController::class, 'index'])->name('url.short');
 Route::post('/url/short', [UrlShortController::class, 'store'])->name('url.short.store');
@@ -23,5 +23,8 @@ Route::post('/user/login', [UserController::class, 'userLogin'])->name('user.log
 
 //user panel
 Route::get('/user/panel', [UserPanelController::class, 'index'])->name('user.panel');
+
+//Export csv
+Route::get('/exportTo/{type}', [UrlShortController::class, 'export']);
 
 

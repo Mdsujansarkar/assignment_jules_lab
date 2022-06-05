@@ -44,6 +44,7 @@
                 </div>
             </div>
         </div>
+ 
         <div class="row">
             <div class="col-xl-6">
                 <div class="card mb-4">
@@ -64,10 +65,32 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area me-1"></i>
+                        Area Chart Example
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('admin.filter') }}" method="get">
+                            @csrf
+                            <label for="birthday">Start Date:</label>
+                            <input type="date" id="birthday" name="start_date">
+                            <label for="birthday">End Date:</label>
+                            <input type="date" id="birthday" name="end_date">
+                            <input type="submit" value="Filter">
+                          </form>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                DataTable Example
+                <a href="{{ url('exportTo/csv') }}">Export CSV</a>
             </div>
             <div class="card-body">
                 <table class="table table-success table-striped">

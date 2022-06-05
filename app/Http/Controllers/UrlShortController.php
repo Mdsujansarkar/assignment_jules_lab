@@ -8,6 +8,8 @@ use App\Models\UrlShorts;
 use App\Models\User;
 use App\Models\UserAgentInfo;
 use Illuminate\Http\Request;
+use Excel;
+use App\Exports\UsersExport;
 
 class UrlShortController extends Controller
 {
@@ -68,9 +70,14 @@ class UrlShortController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function adminDashboard()
+    public function adminDashboard(Request $request)
     {
-        $user_agent_infos = UserAgentInfo::with('userInfo')->paginate(2);
+        // $user_agent_infos = UserAgentInfo::with('userInfo')->paginate(5);
+
+        $user_agent_infos = UserAgentInfo::with('userInfo')
+                                    ->FilterByDateRangeFor($request) 
+                                    ->orderBy('id','DESC')
+                                    ->paginate(10);
         
         return view('backend.home.dashboard',[
             'user_agent_infos' =>$user_agent_infos 
@@ -83,9 +90,16 @@ class UrlShortController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function export($type)
     {
-        //
+        // $data = UserAgentInfo::get(['ip_address','location','latitude','longitude','browser','os_name','device'])->toArray();
+        // return Excel::store('export_to_excel_example', function($excel) use ($data) {
+        // $excel->sheet('mySheet', function($sheet) use ($data)
+        // {
+        // $sheet->fromArray($data);
+        // });
+        // })->download($type);
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 
     /**
